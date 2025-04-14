@@ -21,5 +21,5 @@ pip install pygame
 
 4. Run the game
 ```
-python -m dino_vs_cactus.main
+python -m Food-Rush.main
 ```
