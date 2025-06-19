@@ -1,0 +1,9 @@
+{
+    "coins": 0.0,
+    "vehicles": {
+        "bicycle": true,
+        "scooter": false,
+        "motorcycle": false
+    },
+    "current_vehicle": "bicycle"
+}
