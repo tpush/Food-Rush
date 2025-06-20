@@ -4,7 +4,7 @@ from ..services.asset_loader import AssetLoader
 
 
 class HUDView:
-    """Отрисовывает HUD: жизни, энергию, расстояние и монеты."""
+    """Отрисовка HUD: жизни, энергия, расстояние и монеты."""
 
     def __init__(self):
         self.font_medium = AssetLoader.get_font(C.FONT_SIZE_MEDIUM)
@@ -32,12 +32,12 @@ class HUDView:
         screen.blit(coins_surf,
                     coins_surf.get_rect(right=C.WINDOW_WIDTH - 20, top=10))
 
-        # Жизни (иконками)
+        # Жизни
         for i in range(player.lives):
             screen.blit(self.life_image,
                         (C.WINDOW_WIDTH - 30 - 10 - i * 35, 35))
 
-        # Полоска энергии снизу
+        # Полоска бонусной энергии снизу
         self._draw_bar(screen, C.WINDOW_WIDTH/2 - 150, C.WINDOW_HEIGHT-40,
                        300, 25, player.energy / C.PLAYER_MAX_ENERGY,
                        C.COLOR_BLUE, "Энергия")
