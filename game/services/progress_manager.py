@@ -4,7 +4,7 @@ from .. import constants as C
 
 
 class ProgressManager:
-    """Управляет сохранением и загрузкой игрового прогресса."""
+    """Управление сохранением и загрузкой игрового прогресса."""
 
     def __init__(self):
         self.filepath = os.path.join(C.SAVES_DIR, C.PROGRESS_FILE)
@@ -16,12 +16,12 @@ class ProgressManager:
         self.load()
 
     def _ensure_saves_dir(self):
-        """Убеждается, что директория для сохранений существует."""
+        """Проверка на существование директории для сохранения прогресса."""
         if not os.path.exists(C.SAVES_DIR):
             os.makedirs(C.SAVES_DIR)
 
     def load(self):
-        """Загружает прогресс из JSON-файла."""
+        """Загрузка прогресса из JSON-файла."""
         if not os.path.exists(self.filepath):
             self.save()
             return
@@ -41,7 +41,7 @@ class ProgressManager:
             self.reset_and_save()
 
     def save(self):
-        """Сохраняет текущий прогресс в JSON-файл."""
+        """Сохранение текущего прогресса в JSON-файл."""
         data = {
             'coins': self.coins,
             'vehicles': self.vehicles,
@@ -54,7 +54,7 @@ class ProgressManager:
             print(f"Ошибка сохранения прогресса '{self.filepath}': {e}")
 
     def reset_and_save(self):
-        """Сбрасывает прогресс к значениям по умолчанию и сохраняет."""
+        """Сброс прогресса к значениям по умолчанию и сохранение."""
         self.coins = 0
         self.vehicles = {key: data['price'] == 0
                          for key, data in C.VEHICLES.items()}
@@ -62,13 +62,13 @@ class ProgressManager:
         self.save()
 
     def add_coins(self, amount):
-        """Добавляет монеты к прогрессу игрока."""
+        """Добавление монет к прогрессу игрока."""
         if amount > 0:
             self.coins += amount
             self.save()
 
     def spend_coins(self, amount):
-        """Тратит монеты игрока."""
+        """Трата монет игрока."""
         if self.coins >= amount:
             self.coins -= amount
             self.save()
@@ -76,7 +76,7 @@ class ProgressManager:
         return False
 
     def buy_vehicle(self, vehicle_key):
-        """Покупает транспортное средство, если у игрока достаточно монет."""
+        """Покупка транспортного средства, если у игрока достаточно монет."""
         if vehicle_key not in C.VEHICLES:
             return False
 
@@ -90,5 +90,5 @@ class ProgressManager:
         return False
 
     def get_current_vehicle_stats(self):
-        """Возвращает характеристики текущего выбранного транспорта."""
+        """Возвращение характеристики текущего выбранного транспорта."""
         return C.VEHICLES[self.current_vehicle]
