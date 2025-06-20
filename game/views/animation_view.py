@@ -4,7 +4,7 @@ from ..services.asset_loader import AssetLoader
 
 
 class DeliveryAnimationView:
-    """Управляет и отрисовывает анимацию доставки."""
+    """Управление и отрисовка анимации доставки."""
 
     def __init__(self):
         self.font = AssetLoader.get_font(C.FONT_SIZE_LARGE)
@@ -19,14 +19,14 @@ class DeliveryAnimationView:
         self.frame_timer = 0.0
 
     def start(self):
-        """Запускает анимацию."""
+        """Запуск анимации."""
         self.timer = C.DELIVERY_ANIMATION_DURATION
         self.active = True
         self.current_frame_index = 0
         self.frame_timer = 0.0
 
     def update(self, dt):
-        """Обновляет таймер и анимацию спрайтов."""
+        """Обновление таймера и анимации спрайтов."""
         if self.active:
             self.timer -= dt
 
@@ -42,7 +42,7 @@ class DeliveryAnimationView:
         return False
 
     def draw(self, screen):
-        """Отрисовывает сцену анимации."""
+        """Отрисовка сцены анимации."""
         if not self.active:
             return
 
@@ -68,7 +68,7 @@ class DeliveryAnimationView:
             screen.blit(self.player_frames[self.current_frame_index],
                         player_rect.topleft)
 
-        # Красивый дом из блоков
+        # Изображение дома
         house_base_x = C.WINDOW_WIDTH - 250
         house_base_y = C.WINDOW_HEIGHT - 300
 
