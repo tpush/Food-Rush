@@ -30,13 +30,13 @@ class DecorativeElement:
                                      stone_height)
             pygame.draw.ellipse(screen, stone_color, stone_rect)
 
-            # Добавим немного тени
+            # Тень
             shadow_offset_x = random.randint(1, 3)
             shadow_offset_y = random.randint(1, 3)
             shadow_color = (max(0, stone_color[0] - 20),
                             max(0, stone_color[1] - 20),
                             max(0, stone_color[2] - 20))
-            # Рисуем меньший эллипс со смещением
+            # Отрисовка меньшего эллипса со смещением
             pygame.draw.ellipse(
                 screen, shadow_color,
                 (stone_rect.x + shadow_offset_x,
@@ -73,9 +73,9 @@ class Road:
         self.left_border = self.road_x
         self.right_border = self.road_x + self.road_width
 
-        # Для спауна препятствий
+        # Для появления препятствий
         self.obstacle_spawn_timer = 0.0
-        # Для спауна декораций
+        # Для появления декораций
         self.decoration_spawn_timer = 0.0
 
         self._initial_spawn_decorations()
@@ -97,7 +97,6 @@ class Road:
 
         current_y = start_y
         while current_y > C.DECORATION_MIN_Y_SPAWN - 200:
-            # Увеличено количество декораций на каждом уровне
             num_decorations_at_y = random.randint(5, 10)
             for _ in range(num_decorations_at_y):
                 # Небольшая случайность по Y
@@ -128,7 +127,7 @@ class Road:
         for i in range(len(self.line_y_positions)):
             self.line_y_positions[i] += player_speed * dt
             if self.line_y_positions[i] > C.WINDOW_HEIGHT:
-                # Перемещаем линию наверх
+                # Перемещение линии вверх
                 self.line_y_positions[i] -= (C.WINDOW_HEIGHT +
                                              C.ROAD_LINE_LENGTH +
                                              C.ROAD_LINE_GAP)
@@ -144,7 +143,7 @@ class Road:
         """Создает и добавляет новое препятствие на случайную полосу."""
         lane_x = random.choice(self.lane_centers)
 
-        # Если маршрут "long", спавним только люки
+        # Если маршрут "long", появляются только люки
         if self.current_route_type == 'long':
             obstacle = Manhole(lane_x)
         else:
@@ -194,7 +193,7 @@ class Road:
                 C.SMALL_STONE_ASPECT_RATIO_VARIATION[0],
                 C.SMALL_STONE_ASPECT_RATIO_VARIATION[1])
 
-            # Рандомизируем, будет ли камень шире или выше
+            # Случайно выбираем, будет ли камень шире или выше
             if random.random() < 0.5:
                 draw_data['stone_width'] = base_size
                 draw_data['stone_height'] = int(base_size * aspect_ratio)
@@ -225,7 +224,7 @@ class Road:
                     decor.y > C.DECORATION_MIN_Y_SPAWN - max_decor_height):
                 decor.draw(screen)
 
-        # Сама дорога
+        # Дорога
         pygame.draw.rect(screen, C.COLOR_GRAY_ROAD, self.road_rect)
 
         # Разметка
