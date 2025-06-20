@@ -24,7 +24,7 @@ class Button:
         screen.blit(text_surf, text_rect)
 
     def handle_event(self, event):
-        """Обрабатывает события для кнопки."""
+        """Обработка событий для кнопки."""
         if self.disabled:
             return None
         if event.type == pygame.MOUSEMOTION:
@@ -37,7 +37,7 @@ class Button:
 
 
 class MenuView:
-    """Обрабатывает отображение различных меню игры."""
+    """Обработка отображения различных меню игры."""
 
     def __init__(self, progress_manager, order_manager):
         self.progress = progress_manager
@@ -57,7 +57,7 @@ class MenuView:
         self._set_state('main')
 
     def _set_state(self, new_state, revive_available=False):
-        """Устанавливает текущее состояние меню и генерирует его элементы."""
+        """Установка текущего состояния меню и генерация его элементов."""
         self.state = new_state
         self.ui_elements.clear()
 
@@ -66,7 +66,6 @@ class MenuView:
         elif self.state == 'shop':
             self._create_shop_menu()
         elif self.state == 'orders':
-            self.orders.generate_new_orders()
             self._create_orders_menu()
         elif self.state == 'route':
             self._create_route_menu()
@@ -74,7 +73,7 @@ class MenuView:
             self._create_game_over_menu(revive_available)
 
     def _create_main_menu(self):
-        """Создает кнопки для главного меню."""
+        """Создание кнопок для главного меню."""
         self.ui_elements['btn_start'] = Button(
             (C.WINDOW_WIDTH/2 - 150, 300, 300, 70), "Начать",
             self.font_reg, 'go_to_orders')
@@ -86,7 +85,7 @@ class MenuView:
             self.font_reg, 'quit')
 
     def _create_shop_menu(self):
-        """Создает кнопки для магазина транспорта."""
+        """Создание кнопок для магазина транспорта."""
         start_x = C.WINDOW_WIDTH/2 - (len(C.VEHICLES) * 300 - 50) / 2
         for i, (key, data) in enumerate(C.VEHICLES.items()):
             is_owned = self.progress.vehicles.get(key, False)
@@ -106,7 +105,7 @@ class MenuView:
             self.font_reg, 'go_to_main')
 
     def _create_orders_menu(self):
-        """Создает кнопки для выбора заказов."""
+        """Создание кнопок для выбора заказов."""
         for i, order in enumerate(self.orders.available_orders):
             self.ui_elements[f'btn_order_{i}'] = Button(
                 (C.WINDOW_WIDTH/2-250, 250 + i*100, 500, 80),
@@ -116,7 +115,7 @@ class MenuView:
             self.font_reg, 'go_to_main')
 
     def _create_route_menu(self):
-        """Создает кнопки для выбора маршрута."""
+        """Создание кнопок для выбора маршрута."""
         if self.orders.selected_order:
             base_distance = self.orders.selected_order.base_distance
             base_reward = self.orders.selected_order.reward
@@ -151,7 +150,7 @@ class MenuView:
             self.font_reg, 'go_to_orders')
 
     def _create_game_over_menu(self, revive_available):
-        """Создает кнопки для экрана 'Игра окончена'."""
+        """Создание кнопок для экрана 'Игра окончена'."""
         self.game_over_text = self.font_title.render("ЗАКАЗ ПРОВАЛЕН!",
                                                      True, C.COLOR_RED)
 
@@ -178,7 +177,7 @@ class MenuView:
         )
 
     def handle_event(self, event):
-        """Обрабатывает ввод пользователя в меню."""
+        """Обработка ввода пользователя в меню."""
         action = None
         for element in self.ui_elements.values():
             if isinstance(element, Button):
@@ -225,7 +224,7 @@ class MenuView:
         return None
 
     def draw(self, screen):
-        """Отрисовывает текущее меню на экране."""
+        """Отрисовка текущего меню на экране."""
         screen.blit(self.background, (0, 0))
 
         if self.state not in ['game_over']:
@@ -266,7 +265,7 @@ class MenuView:
                 element.draw(screen)
 
     def _draw_shop_details(self, screen):
-        """Отрисовывает детали магазина."""
+        """Отрисовка деталей магазина."""
         start_x = C.WINDOW_WIDTH/2 - (len(C.VEHICLES) * 300 - 50) / 2
         for i, (key, data) in enumerate(C.VEHICLES.items()):
             name_surf = self.font_med.render(data['name'], True, C.COLOR_WHITE)
@@ -275,7 +274,7 @@ class MenuView:
                                            y=300))
 
     def _draw_route_details(self, screen):
-        """Отрисовывает детали выбора маршрута."""
+        """Отрисовка деталей выбора маршрута."""
         if self.orders.selected_order:
             order_name = self.orders.selected_order.name
             title = self.font_reg.render(f"Заказ: {order_name}", True,
