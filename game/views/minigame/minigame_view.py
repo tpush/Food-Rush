@@ -1,7 +1,7 @@
 import pygame
 from ... import constants as C
 from ...services.asset_loader import AssetLoader
-from .maze_generator import MazeGenerator, AStarPathfinder
+from .maze_generator import MazeGenerator
 
 
 class MinigameView:
@@ -29,14 +29,14 @@ class MinigameView:
         self.font_small = AssetLoader.get_font(C.FONT_SIZE_SMALL)
 
     def start(self):
-        """Начинает новую сессию мини-игры, генерируя новый лабиринт."""
+        """Начало новой сессию мини-игры, генерируя новый лабиринт."""
         generator = MazeGenerator(self.rows, self.cols)
         self.maze = generator.generate()
         self.player_pos = self.start_pos
         self.active = True
 
     def handle_event(self, event):
-        """Обрабатывает ввод для перемещения по лабиринту."""
+        """Обработка ввода для перемещения по лабиринту."""
         if not self.active or self.move_timer > 0:
             return None
 
@@ -69,12 +69,12 @@ class MinigameView:
         return None
 
     def update(self, dt):
-        """Обновляет состояние мини-игры."""
+        """Обновление состояния мини-игры."""
         if self.move_timer > 0:
             self.move_timer -= dt
 
     def draw(self, screen):
-        """Отрисовывает лабиринт, игрока и цель."""
+        """Отрисовка лабиринта, игрока и цели."""
         if not self.active:
             return
 

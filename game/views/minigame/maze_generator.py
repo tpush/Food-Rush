@@ -3,7 +3,7 @@ import heapq
 
 
 class MazeGenerator:
-    """Генерирует лабиринт, используя алгоритм рекурсивного возврата."""
+    """Генерация лабиринта, используя алгоритм рекурсивного возврата."""
 
     def __init__(self, rows, cols):
         self.rows = rows if rows % 2 != 0 else rows + 1
@@ -34,7 +34,7 @@ class MazeGenerator:
             else:
                 stack.pop()
 
-        # Создаем вход и выход
+        # Создние входа и выхода
         self.maze[1][0] = 0
         self.maze[self.rows-2][self.cols-1] = 0
 
@@ -42,7 +42,7 @@ class MazeGenerator:
 
 
 class AStarPathfinder:
-    """Находит кратчайший путь в лабиринте с помощью алгоритма A*."""
+    """Нахождение кратчайшего пути в лабиринте с помощью алгоритма A*."""
 
     def __init__(self, maze):
         self.maze = maze
@@ -50,7 +50,7 @@ class AStarPathfinder:
         self.cols = len(maze[0])
 
     def find_path(self, start, end):
-        """Находит путь от начальной точки до конечной."""
+        """Нахождение пути от начальной точки до конечной."""
         open_set = []
         heapq.heappush(open_set, (0, start))
 
@@ -82,11 +82,11 @@ class AStarPathfinder:
         return None
 
     def _heuristic(self, a, b):
-        """Манхэттенское расстояние как эвристическая функция."""
+        """Манхэттенское расстояние."""
         return abs(a[0] - b[0]) + abs(a[1] - b[1])
 
     def _get_neighbors(self, pos):
-        """Возвращает список соседних проходимых ячеек."""
+        """Возвращение списка соседних проходимых ячеек."""
         r, c = pos
         neighbors = []
         for dr, dc in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
@@ -97,7 +97,7 @@ class AStarPathfinder:
         return neighbors
 
     def _reconstruct_path(self, came_from, current):
-        """Восстанавливает путь от конца к началу."""
+        """Восстановление пути от конца к началу."""
         path = [current]
         while current in came_from:
             current = came_from[current]
